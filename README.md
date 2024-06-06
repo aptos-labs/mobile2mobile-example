@@ -1,8 +1,8 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a [**React Native**](https://reactnative.dev) project of a dApp example for deep-link transaction signing through Petra mobile app, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+>**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding. You can also [mise-en-place](https://github.com/jdx/mise) to easily setup your development environment.
 
 ## Step 1: Start the Metro Server
 
@@ -11,10 +11,6 @@ First, you will need to start **Metro**, the JavaScript _bundler_ that ships _wi
 To start Metro, run the following command from the _root_ of your React Native project:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
 yarn start
 ```
 
@@ -25,20 +21,12 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 ### For Android
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
 yarn android
 ```
 
 ### For iOS
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
 yarn ios
 ```
 
@@ -46,34 +34,52 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+## Step 3: Get the Petra Mobile App
 
-Now that you have successfully run the app, let's modify it.
+Download the Petra mobile app from the [App Store](https://apps.apple.com/us/app/petra-wallet/id6446259840) or [Google Play Store](https://play.google.com/store/apps/details?id=com.aptoslabs.petra.wallet) to interact with the dApp example. Follow the app instructions to create a new wallet or import an existing one. For testing, switch to the `Testnet` network in the app settings and request testnet tokens from the faucet.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+<div>
+  <img alt="Android download Petra mobile app" width="49%" src="docs/assets/android-download-petra-mobile-app.gif">
+  <img alt="iOS download Petra mobile app" width="49%" src="docs/assets/ios-download-petra-mobile-app.gif">
+</div>
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Step 4: Testing the dApp Example
+
+### Connect
+
+Open the dApp example in your emulator/simulator and click the `Connect` button. Note that only the `Connect` button will be enabled on the screen, while the `Disconnect` and `Sign and Submit Transaction with Petra` buttons will be disabled. This will prompt the Petra mobile app to approve the connection. Approve the connection to proceed, and Petra will redirect you back to the dApp example. Now, the `Disconnect` and `Sign and Submit Transaction with Petra` buttons will be enabled, while the `Connect` button will be disabled.
+
+<div>
+  <img alt="Android connect" width="49%" src="docs/assets/android-connect.gif">
+  <img alt="iOS connect" width="49%" src="docs/assets/ios-connect.gif">
+</div>
+
+### Sign and Submit Transaction with Petra
+
+Click on `Sign and Submit Transaction with Petra`. This will prompt the Petra mobile app to approve a transaction. The transaction involves a simple transfer of 0.1 APT to the address `0xb693adc2b70c693019217e95b539a7a3fdd92a033dc491745c0d3ec464807fb1`. You will notice the balance decrease to 0.9 APT, and an activity will be added to the list of activities.
+<div>
+  <img alt="Android sign and submit transaction with Petra" width="49%" src="docs/assets/android-sign-and-submit-transaction-with-petra.gif">
+  <img alt="iOS sign and submit transaction with Petra" width="49%" src="docs/assets/ios-sign-and-submit-transaction-with-petra.gif">
+</div>
+
+### Disconnect
+
+Click on the `Disconnect` button to disconnect the dApp example from the Petra mobile app. This will quickly redirect you to Petra, then back to the initial screen where the `Connect` button will be enabled, and the `Disconnect` and `Sign and Submit Transaction with Petra` buttons will be disabled.
+
+<div>
+  <img alt="Android disconnect" width="49%" src="docs/assets/android-disconnect.gif">
+  <img alt="iOS disconnect" width="49%" src="docs/assets/ios-disconnect.gif">
+</div>
 
 ## Congratulations! :tada:
 
-You've successfully run and modified your React Native App. :partying_face:
+You've successfully run and tested a dApp that signs transactions through Petra. :partying_face:
 
 ### Now what?
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- You can fork this repository and build your own dApp.
+- You can read through the code to understand how to integrate Petra into your own existing dApp. Start by looking at the `App.tsx` file.
 
 # Learn More
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+To learn more about deep-linking to mobile app, [take a look at our documentation](https://petra.app/docs/mobile-deeplinks).
