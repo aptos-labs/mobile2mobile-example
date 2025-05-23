@@ -128,7 +128,7 @@ function App(): React.JSX.Element {
       JSON.stringify({
         arguments: [
           '0x0000000000000000000000000000000000000000000000000000000000000001',
-          10000000, // 0.1 APT
+          10, // 0.0000001 APT
         ],
         function: '0x1::coin::transfer',
         type: 'entry_function_payload',
@@ -155,6 +155,43 @@ function App(): React.JSX.Element {
     );
 
     Linking.openURL(`${PETRA_LINK_BASE}/signAndSubmit?data=${data}`);
+  };
+
+  const signMessage = () => {
+    if (!sharedPublicKey) {
+      throw new Error('Missing shared public key');
+    }
+
+    if (!publicKey) {
+      throw new Error('Missing public key');
+    }
+
+    const message = 'I am signing this message via Petra Wallet';
+    const nonce = nacl.randomBytes(24);
+
+    const encryptedPayload = nacl.box.after(
+      Buffer.from(
+        btoa(
+          JSON.stringify({
+            message,
+          }),
+        ),
+      ),
+      nonce,
+      sharedPublicKey,
+    );
+
+    const data = btoa(
+      JSON.stringify({
+        appInfo: APP_INFO,
+        payload: Buffer.from(encryptedPayload).toString('hex'),
+        redirectLink: `${DAPP_LINK_BASE}/response`,
+        dappEncryptionPublicKey: Buffer.from(publicKey).toString('hex'),
+        nonce: Buffer.from(nonce).toString('hex'),
+      }),
+    );
+
+    Linking.openURL(`${PETRA_LINK_BASE}/signMessage?data=${data}`);
   };
 
   useEffect(() => {
@@ -202,6 +239,13 @@ function App(): React.JSX.Element {
           break;
         }
         default:
+          if (params.get('response') === 'approved') {
+            const data = params.get('data');
+            if (data) {
+              const parsedResponse = JSON.parse(atob(data));
+              console.log(parsedResponse);
+            }
+          }
           break;
       }
     };
@@ -258,6 +302,16 @@ function App(): React.JSX.Element {
             <Button
               title="Sign and Submit Transaction"
               onPress={signAndSubmitTransaction}
+              disabled={!sharedPublicKey}
+            />
+          </Section>
+          <Section title="Sign Message with Petra">
+            This feature allows your app to send an arbitrary message to be
+            signed by the Petra wallet. This is commonly used for authentication
+            or verification flows.
+            <Button
+              title="Sign Message"
+              onPress={signMessage}
               disabled={!sharedPublicKey}
             />
           </Section>
